@@ -1,0 +1,10 @@
+
+@import "@fortawesome/fontawesome-free/css/all.css";
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "assets/styles/custom-kit/variable.scss";
+@import "assets/styles/custom-kit/button.scss";
+@import "assets/styles/custom-kit/style.scss";
+@import "assets/styles/global.scss";

@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-7" style="border:0px solid gray">
+            <!-- Datos del vendedor y titulo del producto -->
+            <h3>{{detailsProduct?.title}}</h3>    
+            <h3 style="margin-top:0px;">{{detailsProduct?.price }}</h3>   
+            <div class="section " >
+                count:
+               <span> {{detailsProduct?.rating.count}}</span>
+            </div>                
+            <!-- Botones de compra -->
+            <div class="section" >
+                <button class="button button-primary button-md-3 "> افزودن کارت</button>
+            </div>                                        
+        </div>                              		
+       <div class="col-md-5 item-photo">
+            <img style="max-width:100%;" [src]="detailsProduct?.image" />
+        </div>
+    </div>
+</div>

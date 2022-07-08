@@ -1,0 +1,20 @@
+@import "../../../../assets/styles/custom-kit/variable.scss";
+
+img{
+    width: 130px;
+    height: auto;
+    max-height: 160px;
+}
+.img-section{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title-product{
+    white-space: nowrap;
+    width: 175px;
+    overflow: hidden;
+    direction: ltr;
+    text-overflow: clip;
+}

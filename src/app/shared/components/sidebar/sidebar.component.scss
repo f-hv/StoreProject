@@ -1,0 +1,10 @@
+@import "../../../../assets/styles/custom-kit/variable.scss";
+
+.container{
+    background-color: $gray-80;
+    min-height: 800px;
+}
+
+label , input{
+    color: $white;
+}

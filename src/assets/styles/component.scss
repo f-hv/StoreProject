@@ -1,0 +1,185 @@
+@import "./custom-kit/variable.scss";
+
+ng-multiselect-dropdown {
+  &.error {
+    .multiselect-dropdown {
+      outline: $border-size-sm solid $error-color;
+    }
+  }
+}
+
+input {
+  background-color: transparent !important;
+  border-color    : $gray-40 !important;
+
+  &.error {
+    outline            : $border-size-sm solid $error-color;
+    outline-offset     : -2px;
+    border-bottom-color: transparent;
+  }
+}
+
+ngb-timepicker {
+  &.error input {
+    outline            : $border-size-sm solid $error-color;
+    outline-offset     : -2px;
+    border-bottom-color: transparent;
+  }
+}
+
+table {
+  table-layout    : fixed; ///overflow td
+  border          : 1px solid red;
+  border-spacing  : 0;
+  background-color: $white !important;
+  box-shadow      : $box-shadow-md;
+  overflow-x      : auto;
+  font-size       : $font-size-2;
+  font-weight     : normal;
+  vertical-align  : middle;
+
+  td {
+    white-space: nowrap;
+    overflow   : hidden; ///overflow td
+  }
+
+  td,
+  th {
+    text-align    : center;
+    vertical-align: center;
+  }
+
+  #detail-td {
+    text-align: left;
+  }
+
+  caption {
+    background-color: $white !important;
+  }
+
+  i {
+    color: $primary-color-1;
+
+    &:hover {
+      color     : $blue-dark;
+      cursor    : pointer;
+      transition: transform 0.2s ease-out; // speed to change size 1 to size 2 on HOVER
+      transform : scale(1.2); ////size buttom on hover ob self
+    }
+  }
+
+  tbody {
+    tr:hover {
+      background-color: $cool-gray-10;
+    }
+  }
+
+  thead {
+    background-color: $primary-color-1;
+    color           : $white;
+    font-size       : $font-size-1;
+    font-weight     : normal;
+  }
+}
+
+
+// ::ng-deep .multiselect-dropdown .dropdown-btn {
+//   border               : 1px solid $black !important;
+//   background-color: rgba(255, 255, 255, 0.7) !important;
+
+
+//   &:focus {
+//     border: 1px solid $magenta-80 !important;
+
+//   }
+
+// }
+
+@media (max-width:768px) {
+  table {
+    font-size: $font-size-0 !important;
+
+    i {
+      width : 10px;
+      height: 10px;
+    }
+  }
+
+  #searchBox {
+    padding: 10px;
+    width  : $width-md;
+  }
+
+  thead {
+    font-size: $font-size-0 !important;
+
+  }
+
+  caption {
+    padding-left : $spacing-09;
+    padding-right: $spacing-02;
+
+    .btn-res {
+      width     : $width-res;
+      height    : $height-res;
+      text-align: center;
+      padding   : 0px;
+      font-size : $font-size-1;
+
+      i {
+        font-size    : $font-size-1;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  ngb-pagination {
+    font-size: $font-size-0 !important;
+  }
+}
+
+::ng-deep .singleselect .multiselect-item-checkbox {
+  padding: 0px !important;
+}
+
+.singleselect input[type=checkbox]+div:before {
+  display: none;
+}
+
+.singleselect input[type=checkbox]+div:after {
+  display: none;
+}
+
+.singleselect input[type=checkbox]+div {
+  border-bottom: 1px $gray-20 solid !important;
+  padding      : 0px !important;
+}
+
+.singleselect .multiselect-dropdown .dropdown-btn {
+  border: 1px solid $gray-20 !important;
+}
+
+.singleselect .multiselect-dropdown .dropdown-btn span :before {
+  top  : 26px !important;
+  right: 15px !important;
+  color: $blue-dark !important;
+
+}
+
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect--active .dropdown-multiselect__caret {
+  transform: none !important;
+}
+
+// .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret :before{
+//     background-color: red !important;
+//     color: red !important;
+//   }
+.transparent-dropdown .multiselect-dropdown .dropdown-btn {
+  border          : 1px solid $black !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  font-size       : $font-size-2;
+
+  &:focus {
+    border: 1px solid $yellow-60 !important;
+  }
+}
