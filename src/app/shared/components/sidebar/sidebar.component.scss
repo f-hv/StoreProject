@@ -3,8 +3,19 @@
 .container{
     background-color: $gray-80;
     min-height: 800px;
+    padding: 10px 0 10px 0;
 }
 
 label , input{
     color: $white;
+}
+.category-section{
+    border-color: white;
+    border-bottom: 1px solid white;
+    padding: 0 0 30px 20px;
+}
+.price-section{
+    padding: 0 0 30px 20px;
+    border-color: white;
+    border-bottom: 1px solid white;
 }

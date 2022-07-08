@@ -11,7 +11,6 @@ export class ProductComponent implements OnInit {
   @Output() dataSearch = new EventEmitter<any>();
   searchKeyWord: any;
   productsList: any = [];
-  // productsAlternate:any=[...this.productsList];
 
   ///// pagination
   currentPage: any = 1;
@@ -24,12 +23,7 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.getProduct();
   }
-  // ngOnChange(){
-  //   this.getproductList();
-  // }
-  // getproductList(){
-  //   return this.productsList;
-  // }
+
 
   getProduct() {
     this.productService.getProducts().subscribe(content => {
