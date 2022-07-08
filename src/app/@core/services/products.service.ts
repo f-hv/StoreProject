@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PRODUCT } from '../models/product.model';
 import { map } from 'rxjs/operators';
-
+import { RestClientService } from './rest-client.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
   apiURL = 'https://fakestoreapi.com';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: RestClientService) {}
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,40 +20,31 @@ export class ProductsService {
   };
 
   getProducts(): Observable<PRODUCT> {
-    return this.http
-      .get<PRODUCT>(this.apiURL + '/products')
+    return this.http.get('/products');
   }
   getProduct(id: any): Observable<PRODUCT> {
-    return this.http
-      .get<PRODUCT>(this.apiURL + `/products/${id}`)
+    return this.http.get(`/products/${id}`);
   }
   getProductsSpecificCategory(titleCategory: string): Observable<PRODUCT> {
-    return this.http
-      .get<PRODUCT>(this.apiURL + `/products/category/${titleCategory}`)
+    return this.http.get(`/products/category/${titleCategory}`);
   }
   getallcategories(): Observable<any> {
-    return this.http
-      .get<any>(this.apiURL + '/products/categories')
+    return this.http.get('/products/categories');
   }
   postProduct(body: any) {
-    return this.http
-      .post<PRODUCT>(this.apiURL + '/products', body)
+    return this.http.post('/products', body);
   }
   putProduct(body: any, id: any) {
-    return this.http
-      .put<PRODUCT>(this.apiURL + `/products/${id}`, body)
+    return this.http.put(`/products/${id}`, body);
   }
   deleteProduct(id: any) {
-    return this.http
-      .delete<PRODUCT>(this.apiURL + `/products/${id}`)
+    return this.http.delete(`/products/${id}`);
   }
 
   LimitResults(limit: any): Observable<PRODUCT> {
-    return this.http
-      .get<PRODUCT>(this.apiURL + `/products/${limit}`)
+    return this.http.get(`/products/${limit}`);
   }
   SortResults(sort: any): Observable<PRODUCT> {
-    return this.http
-      .get<PRODUCT>(this.apiURL + `/products/${sort}`)
+    return this.http.get(`/products/${sort}`);
   }
 }
