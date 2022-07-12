@@ -1,18 +1,38 @@
-<div class="container-fluid p-0" >
+<div class="container-fluid p-0">
+
     <div class="row header d-flex align-content-center">
         <div class="col-md-6"></div>
         <div class="col-md-6 search ">
-            <app-search-box (keyupChange)="onKeyup($event)" [placeHolder]="'جستجو'" [size]="'small'"></app-search-box>
+            <app-search-box (keyupChange)="onKeyup($event)" [placeHolder]="'type title'" [size]="'small'">
+            </app-search-box>
         </div>
     </div>
-    <div class="sidebar">
-        <app-sidebar (categorySelected)="checkedItem($event)"></app-sidebar>
-    </div>
-    <div class="content">
-        <div class="store-view pl-0 flex-grow-1">
-            <div class="px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div *ngFor="let product of productsList " class="col mb-5">  
+    <div class="row">
+        <div class="col-md-3 sidebar ">
+            <app-sidebar 
+                (categorySelected)="isClickOnCategory($event)" 
+                (rangePriceSelected)="handleRangePrice($event)" 
+                [minPrice]="minPrice" 
+                [maxPrice]="maxPrice" >
+            </app-sidebar>
+        </div>
+        <div class=" col-md-9 content">
+            <div class="row sort-section pt-1 d-flex">
+                <div class="col-md-2">
+                    <label class="form-check-label p-1" for="expensive">
+                        <span>sorting</span>
+                    </label>
+                </div>
+                <div class="col-md-10 options rounded-3">
+                    <button class="button-Rprimary button-sm-0 mt-2" (click)="sortByPrice(SortPrice.asc)"> cheapest </button>
+                    <button class="button-Rprimary button-sm-0 mt-2" (click)="sortByPrice(SortPrice.desc)"> expensive </button>
+                    <button class="button-Rprimary button-sm-0 mt-2" (click)="sortByPrice(clearSort)"> clear sort </button>
+                </div>
+            </div>
+            <div *ngIf="resualt then resualtProducts " class="row resualt"></div>
+            <ng-template #resualtProducts>
+                <div class="row store-view ">
+                    <div *ngFor="let product of productsList " class="col mb-5">
                         <!-- slice: (currentPage-1) * elementPerpage : (currentPage-1) * elementPerpage + elementPerpage -->
                         <div class="card h-100 align-products-center">
                             <div class="img-section">
@@ -33,9 +53,13 @@
                         </div>
                     </div>
                 </div>
-                <ngb-pagination collectionSize=[collectionSize] [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="false"
-                    [pageSize]="elementPerpage" class="d-flex justify-content-end p-2"></ngb-pagination>
-            </div>
+            </ng-template>
+            <div *ngIf="!resualt && SearchDone then resualtCategoryChecked" class="resualt"></div>
+            <ng-template #resualtCategoryChecked>
+                <h3> Oh! Sorry No Resualt</h3>
+            </ng-template>
+            <ngb-pagination collectionSize=[collectionSize] [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="false"
+                [pageSize]="elementPerpage" class="d-flex justify-content-end p-2">
+            </ngb-pagination>
         </div>
     </div>
-</div>

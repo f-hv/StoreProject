@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ProductsService } from 'src/app/@core/services/products.service';
 
 @Component({
@@ -8,21 +8,27 @@ import { ProductsService } from 'src/app/@core/services/products.service';
 })
 export class SidebarComponent implements OnInit {
   @Output() categorySelected = new EventEmitter<any>();
+  @Output() rangePriceSelected = new EventEmitter<any>();
+  @Input() minPrice: any;
+  @Input() maxPrice: any;
   listCategories: any[] = []
-
+  rangePriceValue:any=0;
   constructor(
     private productService: ProductsService
   ) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    // this.getCategories();
   }
 
   getCategories() {
     this.productService.getallcategories().subscribe(data => this.listCategories = data)
   }
-  
-  onCheckboxChange(item: any) {
+
+  onCategoryChecked(item: any) {
     this.categorySelected.emit(item);
+  }
+  changedRangePrice(item:any){   
+    this.rangePriceSelected.emit(item);
   }
 }

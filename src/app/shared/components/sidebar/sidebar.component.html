@@ -1,26 +1,35 @@
-<div class="container " >
-    <div class="category-section">
+<div class="container ">
+    <div class="category-section style-section">
         <div class="form-check content pt-3" *ngFor="let item of listCategories">
             <label class="form-check-label" for="checkbox1">
-                <input class="form-check-input" type="checkbox" id="checkbox1" [value]="item"
-                    (change)="onCheckboxChange(item)" />
-                    <span class="p-2"> {{item}}</span>
-                   
+                <input class="form-check-input" type="checkbox" [value]="item" (change)="onCategoryChecked(item)" />
+                <span class="p-2"> {{item}}</span>
             </label>
         </div>
     </div>
-    <div class="price-section">
-        <div class=" pt-3">
-            <label class="form-check-label" for="cheapest">
-                <input class="form-check-input" type="checkbox" id="cheapest" [value]="" />
-                <span class="p-2">cheapest</span>
-            </label>
-        </div>
-        <div class=" pt-3">
-            <label class="form-check-label" for="expensive">
-                <input class="form-check-input" type="checkbox" id="expensive" [value]="" />
-                <span class="p-2">expensive</span>
-            </label>
+    <div class="rangePrice style-section">
+        <label for="customRange" class="form-label">price range</label>
+        <input 
+            type="range" 
+            class="form-range" 
+            [min]="minPrice" 
+            [max]="maxPrice" 
+            id="customRange"
+            [(ngModel)]="rangePriceValue" 
+            (ngModelChange)="changedRangePrice($event)" 
+        >
+        <div class="price">
+            <span>{{minPrice}}</span>
+            <span class="valueRange" >{{rangePriceValue}}</span>
+            <span>{{maxPrice}}</span>
         </div>
     </div>
+    <div class="availableProducts style-section">
+        <!-- <label class="form-check-label" for="checkbox1">
+            <input class="form-check-input" type="checkbox" [value]="availableProducts" (change)="onCategoryChecked(item)" />
+            <span class="p-2"> {{item}}</span>
+        </label> -->
+    </div>
+
 </div>
+            <!-- [checked]="infoperson.isactive" -->

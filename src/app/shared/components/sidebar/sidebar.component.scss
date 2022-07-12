@@ -1,21 +1,32 @@
 @import "../../../../assets/styles/custom-kit/variable.scss";
 
-.container{
-    background-color: $gray-80;
+.container {
+    background-color: $gray-100;
     min-height: 800px;
     padding: 10px 0 10px 0;
 }
 
-label , input{
+label,
+input {
     color: $white;
 }
-.category-section{
+.style-section {
     border-color: white;
     border-bottom: 1px solid white;
-    padding: 0 0 30px 20px;
+    padding: 10px 10px 30px 20px;
 }
-.price-section{
-    padding: 0 0 30px 20px;
-    border-color: white;
-    border-bottom: 1px solid white;
+#customRange {
+    color: $gray-40;
+}
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: -13px;
+    span {
+        color: $gray-40;
+    }
+    .valueRange{
+        color: $red-50;
+    }
 }
