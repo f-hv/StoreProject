@@ -52,7 +52,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getProduct();
     this.route.queryParams.subscribe(params => {
-      console.log("params:",params)
+      console.log("params:", params)
       this.urlParameters = Object.assign({}, params);
     });
   }
@@ -60,6 +60,8 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(content => {
       this.resualt = true;
       this.productsList = content;
+      console.log(this.productsList);
+
       this.collectionSize = this.productsList.length;
       this.minMaxPrice();
       this.handleRangePrice('999');
@@ -67,7 +69,6 @@ export class ProductsComponent implements OnInit {
   }
 
   searchKeywordChange(data: any) {
-    debugger
     this.searchKeyWord = data;
     if (!(this.searchKeyWord.length === 0) && this.searchKeyWord.length < 3) {
       return;
@@ -78,8 +79,9 @@ export class ProductsComponent implements OnInit {
     if (data.keycode !== 13 && data.keycode !== 8) {
       if (this.searchKeyWord.length > 2) {
         this.SearchDone = true;
-
         const resualtList = this.productsList.filter((item: any) => item.title?.includes(this.searchKeyWord));
+        this.urlParameters.searchWord = this.searchKeyWord;// Take current queryParameters from the activated route snapshot
+        this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
         if (resualtList.length !== 0) {
           this.productsList = resualtList;
           this.listElectronic.length = 0;
@@ -95,8 +97,7 @@ export class ProductsComponent implements OnInit {
                 category: res.category,
                 description: res.description,
                 image: res.image,
-                rate: res.rating.rate,
-                count: res.rating.count
+                rating: res.rating,
               })
             }
             if (res.category == categoryEnum.JEWELERY) {
@@ -107,8 +108,7 @@ export class ProductsComponent implements OnInit {
                 category: res.category,
                 description: res.description,
                 image: res.image,
-                rate: res.rating.rate,
-                count: res.rating.count
+                rating: res.rating,
               })
             }
             if (res.category == categoryEnum.MENSCLOTHING) {
@@ -119,8 +119,7 @@ export class ProductsComponent implements OnInit {
                 category: res.category,
                 description: res.description,
                 image: res.image,
-                rate: res.rating.rate,
-                count: res.rating.count
+                rating: res.rating
               })
             } if (res.category == categoryEnum.WOMENSCLOTHING) {
               this.listWomen.push({
@@ -130,8 +129,7 @@ export class ProductsComponent implements OnInit {
                 category: res.category,
                 description: res.description,
                 image: res.image,
-                rate: res.rating.rate,
-                count: res.rating.count
+                rating: res.rating
               })
             }
           })
@@ -146,19 +144,18 @@ export class ProductsComponent implements OnInit {
 
   }
   filterOnCategory(categoryTitle: any) {
-    debugger
     if (this.categoryList.length === 0) {
       this.categoryList.push(categoryTitle)
     }
     else {
       const resualt = this.categoryList.find((item: any) => item === categoryTitle)
-      if (resualt){
+      if (resualt) {
         this.categoryList = this.categoryList.filter((item: any) => item !== categoryTitle);
         if (this.categoryList.length === 0)
           this.getProduct();
       }
-      else{
-          this.categoryList.push(categoryTitle)
+      else {
+        this.categoryList.push(categoryTitle)
       }
 
     }
@@ -166,7 +163,7 @@ export class ProductsComponent implements OnInit {
     this.categoryList.map((item: any) => {
       this.productService.getProductsSpecificCategory(item).subscribe((content: any) => {
         content.map((res: any) => {
-          this.urlParameters.parameterName = this.categoryList;// Take current queryParameters from the activated route snapshot
+          this.urlParameters.filterCategory = this.categoryList;// Take current queryParameters from the activated route snapshot
           this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
           this.productsList.push({
             id: res.id,
@@ -175,14 +172,11 @@ export class ProductsComponent implements OnInit {
             category: res.category,
             description: res.description,
             image: res.image,
-            rate: res.rating.rate,
-            count: res.rating.count
+            rating: res.rating
           })
         })
       })
     })
-    console.log(this.urlParameters);
-
   }
 
   // sortPrice(data: any) {
@@ -206,21 +200,27 @@ export class ProductsComponent implements OnInit {
     if (type == sortPriceEnum.asc) {
       this.productsList.sort((a: any, b: any) => (a.price < b.price ? -1 : 1));
     }
-
     if (type == sortPriceEnum.desc) {
       this.productsList.sort((a: any, b: any) => (a.price > b.price ? -1 : 1));
     }
+    this.urlParameters.sortType = type;
+    this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
   }
 
-  productById(index: any, line: any) {
-    return line.id;
-  }
   handleRangePrice(data: any) {
+    debugger
+    console.log(data);
     this.productsList = this.productsList.filter((item: any) => item.price < data)
+    this.urlParameters.rangePrice = data;
+    this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
+
   }
   availableProduct(data: any) {
-    if (data)
+    if (data) {
       this.productsList = this.productsList.filter((item: any) => item.rating.count !== 0)
+      this.urlParameters.availableProduct = data;
+      this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
+    }
     else
       this.getProduct();
 

@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from 'src/app/@core/services/products.service';
 
 @Component({
-  selector: 'app-details-product',
-  templateUrl: './details-product.component.html',
-  styleUrls: ['./details-product.component.scss']
+  selector: 'app-details',
+  templateUrl: './details.component.html',
+  styleUrls: ['./details.component.scss']
 })
-export class DetailsProductComponent implements OnInit {
+export class DetailsComponent implements OnInit {
+
   id: any;
   detailsProduct: any;
   constructor(
@@ -28,5 +29,6 @@ export class DetailsProductComponent implements OnInit {
 
     })
   }
+
 
 }

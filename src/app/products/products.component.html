@@ -1,0 +1,185 @@
+<div class="container-fluid p-0">
+    <div class="row header d-flex align-content-center">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 search ">
+            <app-search-box (searchKeyword)="searchKeywordChange($event)" [placeHolder]="'search by title'"
+                [size]="'small'">
+
+
+            </app-search-box>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 sidebar ">
+            <app-sidebar (categorySelected)="filterOnCategory($event)" (rangePriceSelected)="handleRangePrice($event)"
+                (availableProducts)="availableProduct($event)" [minPrice]="minPrice" [maxPrice]="maxPrice">
+            </app-sidebar>
+        </div>
+        <div class=" col-md-9 content">
+            <div class="row sort-section d-flex">
+                <div class="col-sm-1">
+                    <h5>sorting</h5>
+                </div>
+                <div class="col-sm-11 options">
+                    <button class="button-Rprimary button-sm-1 mx-2" (click)="sortByPrice(SortPrice.asc)">
+                        <i class="fa-solid fa-arrow-down-short-wide text-light mx-2"></i>cheapest
+                    </button>
+                    <button class="button-Rprimary button-sm-1 mx-2" (click)="sortByPrice(SortPrice.desc)">
+                        <i class="fa-solid fa-arrow-down-wide-short text-light mx-2"></i> expensive
+                    </button>
+                    <button class="button-Rprimary button-sm-1 mx-2 clear" (click)="sortByPrice(clearSort)"> clear sort
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="resualt && !SearchDone then resualtProducts" class="row resualt"></div>
+            <ng-template #resualtProducts>
+                <div class="row store-view search-results mt-3" infiniteScroll
+                    [infiniteScrollDistance]="infiniteScrollDistance" [infiniteScrollThrottle]="infiniteScrollThrottle">
+                    <div *ngFor="let item of productsList"
+                        class="col mb-5">
+                        <!-- | slice: (currentPage-1) * elementPerpage : (currentPage-1) * elementPerpage + elementPerpage -->
+                        <div class="card h-100 align-products-center">
+                            <div class="img-section">
+                                <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                            </div>
+                            <div class="card-body p-2">
+                                <div class="text-center">
+                                    <div class="title-product">
+                                        <h4 class="fw-bolder ">{{item?.title}}</h4>
+                                    </div>
+                                    <app-star-rating [rate]="item.rating.rate"></app-star-rating>
+                                    <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <button class="button-yellow button-sm-2 mt-auto"
+                                        [routerLink]="'../details/' + item?.id">مشخصات کالا
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <ngb-pagination [collectionSize]="collectionSize" [(page)]="currentPage" [maxSize]="5"
+                [boundaryLinks]="false" [pageSize]="elementPerpage" class="d-flex justify-content-end p-2">
+            </ngb-pagination> -->
+                </div>
+            </ng-template>
+            <div *ngIf="!resualt && SearchDone then noResualtSearch" class="resualt"></div>
+            <div *ngIf="resualt && SearchDone then successfulResualtSearch" class="resualt"></div>
+            <ng-template #noResualtSearch>
+                <h3> Oh! Sorry No Resualt</h3>
+            </ng-template>
+            <ng-template #successfulResualtSearch>
+                <div class="row store-view search-results">
+                    <div *ngIf="listElectronic.length !== 0 then electronics"></div>
+                    <div *ngIf="listJewelery.length !== 0 then jewelery"></div>
+                    <div *ngIf="listMen.length !== 0  then mensclothing"></div>
+                    <div *ngIf="listWomen.length !== 0  then womensclothing"></div>
+                    <ng-template #electronics>
+                        <div class="row  mt-3">
+                            <h3>electronics</h3>
+                            <div *ngFor="let item of listElectronic " class="col mb-3 ">
+                                <div class="card h-100 align-products-center">
+                                    <div class="img-section">
+                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="text-center">
+                                            <div class="title-product">
+                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                            </div>
+                                            <app-star-rating [rate]="item.rating.rate"></app-star-rating>
+                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><button class="button-yellow button-sm-2 mt-auto"
+                                                [routerLink]="'../details/' + item?.id">مشخصات کالا</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #jewelery>
+                        <div class="row searchResualtSection  ">
+                            <h3> jewelery</h3>
+                            <div *ngFor="let item of listJewelery " class="col mb-3 ">
+                                <div class="card h-100 align-products-center">
+                                    <div class="img-section">
+                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="text-center">
+                                            <div class="title-product">
+                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                            </div>
+                                            <app-star-rating [rate]="item.rating.rate"></app-star-rating>
+                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><button class="button-yellow button-sm-2 mt-auto"
+                                                [routerLink]="'../details/' + item?.id">مشخصات کالا</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #mensclothing>
+                        <div class="row searchResualtSection ">
+                            <h3> mensclothing</h3>
+                            <div *ngFor="let item of listMen " class="col mb-3 ">
+                                <div class="card h-100 align-products-center">
+                                    <div class="img-section">
+                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="text-center">
+                                            <div class="title-product">
+                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                            </div>
+                                            <app-star-rating [rate]="item.rating.rate"></app-star-rating>
+                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><button class="button-yellow button-sm-2 mt-auto"
+                                                [routerLink]="'../details/' + item?.id">مشخصات کالا</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #womensclothing>
+                        <div class="row searchResualtSection ">
+                            <h3> womens clothing </h3>
+                            <div *ngFor="let item of listWomen " class="col mb-3  ">
+                                <div class="card h-100 align-products-center">
+                                    <div class="img-section">
+                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="text-center">
+                                            <div class="title-product">
+                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                            </div>
+                                            <app-star-rating [rate]="item.rating.rate"></app-star-rating>
+                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><button class="button-yellow button-sm-2 mt-auto"
+                                                [routerLink]="'../details/' + item?.id">مشخصات کالا</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-template>
+            
+        </div>
+    </div>
+</div>

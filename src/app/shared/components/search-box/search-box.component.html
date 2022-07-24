@@ -9,9 +9,13 @@
   </button> -->
   <input type="text"
     [ngClass]="{ 'input-md': size === 'medium', 'input-sm': size === 'small' }" 
-    (keyup)="Keyup($event)"
     [placeholder]="placeHolder" 
-    [(ngModel)]="inputSearchKeyword">
+    [(ngModel)]="inputSearchKeyword"
+    class="basicAutoComplete"  
+    autocomplete="true"
+    (input)="handleSearchOnInput()"
+    (keyup)="onKeyup($event)"
+    >
   
   <button class="button btn-i-search  position-absolute end-0">
     <i class="position-relative fas fa-search font-size-20 "></i>

@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { PanelModule } from './panel/panel.module';
 import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +16,6 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    PanelModule,
     RouterModule,
   ],
   providers: [],

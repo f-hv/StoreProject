@@ -9,16 +9,17 @@ export class SearchBoxComponent implements OnInit {
   @Input() searchItem:any;
   @Input() size:any;
   @Input() placeHolder:any;
+  @Output() searchKeyword = new EventEmitter();
   @Output() keyupChange=new EventEmitter<any>();
   inputSearchKeyword:any
   constructor() { }
 
   ngOnInit(): void {}
-  Keyup(value:any){
-    this.keyupChange.emit(this.inputSearchKeyword);
+  onKeyup(value:any){
+    this.keyupChange.emit(value);
   }
-  handleOnClickCloseIcon() {
-    this.inputSearchKeyword = '';
-    this.Keyup(this.inputSearchKeyword);
+
+  handleSearchOnInput() {
+    this.searchKeyword.emit(this.inputSearchKeyword);
   }
 }

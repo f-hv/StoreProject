@@ -9,16 +9,19 @@ import { ProductsService } from 'src/app/@core/services/products.service';
 export class SidebarComponent implements OnInit {
   @Output() categorySelected = new EventEmitter<any>();
   @Output() rangePriceSelected = new EventEmitter<any>();
+  @Output() availableProducts = new EventEmitter<any>();
+
   @Input() minPrice: any;
   @Input() maxPrice: any;
+  products: boolean=false;
   listCategories: any[] = []
-  rangePriceValue:any=0;
+  rangePriceValue: any = 0;
   constructor(
     private productService: ProductsService
   ) { }
 
   ngOnInit(): void {
-    // this.getCategories();
+    this.getCategories();
   }
 
   getCategories() {
@@ -28,7 +31,10 @@ export class SidebarComponent implements OnInit {
   onCategoryChecked(item: any) {
     this.categorySelected.emit(item);
   }
-  changedRangePrice(item:any){   
+  changedRangePrice(item: any) {
     this.rangePriceSelected.emit(item);
+  }
+  selectProducts(data:any) {
+    this.availableProducts.emit(data);  
   }
 }
