@@ -31,8 +31,8 @@ export class SidebarComponent implements OnInit {
   onCategoryChecked(item: any) {
     this.categorySelected.emit(item);
   }
-  changedRangePrice(item: any) {
-    this.rangePriceSelected.emit(item);
+  changedRangePrice() {
+    this.rangePriceSelected.emit(this.rangePriceValue);
   }
   selectProducts(data:any) {
     this.availableProducts.emit(data);  

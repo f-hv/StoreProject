@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { DetailsComponent } from './details/details.component';
 import { SharedModule } from '../shared/shared.module';
-import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './products.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ProductsComponent } from './products.component';
     ProductsRoutingModule,
     SharedModule,
     RouterModule,
+    NgbPaginationModule,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

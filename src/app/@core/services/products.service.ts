@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PRODUCT } from '../models/product.model';
-import { map } from 'rxjs/operators';
+import { ProductModel } from '../models/product.model';
 import { RestClientService } from './rest-client.service';
 
 @Injectable({
@@ -19,13 +18,13 @@ export class ProductsService {
   //   }),
   // };
 
-  getProducts(): Observable<PRODUCT> {
+  getProducts(): Observable<ProductModel[]> {
     return this.restClientService.get('/products');
   }
-  getProduct(id: any): Observable<PRODUCT> {
+  getProduct(id: any): Observable<ProductModel> {
     return this.restClientService.get(`/products/${id}`);
   }
-  getProductsSpecificCategory(titleCategory: string): Observable<PRODUCT> {
+  getProductsSpecificCategory(titleCategory: string): Observable<ProductModel> {
     return this.restClientService.get(`/products/category/${titleCategory}`);
   }
   getallcategories(): Observable<any> {
@@ -41,10 +40,10 @@ export class ProductsService {
     return this.restClientService.delete(`/products/${id}`);
   }
 
-  LimitResults(limit: any): Observable<PRODUCT> {
+  LimitResults(limit: any): Observable<ProductModel> {
     return this.restClientService.get(`/products/${limit}`);
   }
-  SortResults(sort: any): Observable<PRODUCT> {
+  SortResults(sort: any): Observable<ProductModel> {
     return this.restClientService.get(`/products?sort=${sort}`);
     // products?sort=desc')
   }

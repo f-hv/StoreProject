@@ -31,13 +31,14 @@
                     </button>
                 </div>
             </div>
+            <div *ngIf="!resualt && SearchDone then noResualtSearch" class="resualt"></div>
+            <div *ngIf="resualt && SearchDone then successfulResualtSearch" class="resualt"></div>
             <div *ngIf="resualt && !SearchDone then resualtProducts" class="row resualt"></div>
             <ng-template #resualtProducts>
                 <div class="row store-view search-results mt-3" infiniteScroll
                     [infiniteScrollDistance]="infiniteScrollDistance" [infiniteScrollThrottle]="infiniteScrollThrottle">
-                    <div *ngFor="let item of productsList"
-                        class="col mb-5">
-                        <!-- | slice: (currentPage-1) * elementPerpage : (currentPage-1) * elementPerpage + elementPerpage -->
+                    <div *ngFor="let item of productsList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+                        class="col mb-5 info-card">
                         <div class="card h-100 align-products-center">
                             <div class="img-section">
                                 <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
@@ -47,30 +48,27 @@
                                     <div class="title-product">
                                         <h4 class="fw-bolder ">{{item?.title}}</h4>
                                     </div>
-                                    <app-star-rating [rate]="item.rating.rate"></app-star-rating>
+                                    <app-star-rating [rate]="item.rating?.rate"></app-star-rating>
                                     <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <button class="button-yellow button-sm-2 mt-auto"
-                                        [routerLink]="'../details/' + item?.id">مشخصات کالا
+                                        [routerLink]="'details/' + item.id">مشخصات کالا
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- <ngb-pagination [collectionSize]="collectionSize" [(page)]="currentPage" [maxSize]="5"
-                [boundaryLinks]="false" [pageSize]="elementPerpage" class="d-flex justify-content-end p-2">
-            </ngb-pagination> -->
+                    
                 </div>
             </ng-template>
-            <div *ngIf="!resualt && SearchDone then noResualtSearch" class="resualt"></div>
-            <div *ngIf="resualt && SearchDone then successfulResualtSearch" class="resualt"></div>
             <ng-template #noResualtSearch>
                 <h3> Oh! Sorry No Resualt</h3>
             </ng-template>
+            <ngb-pagination *ngIf="productsList" [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize">
+            </ngb-pagination>
             <ng-template #successfulResualtSearch>
                 <div class="row store-view search-results">
                     <div *ngIf="listElectronic.length !== 0 then electronics"></div>

@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductModel } from '../@core/models/product.model';
 import { ProductsService } from '../@core/services/products.service';
 import { categoryEnum } from '../shared/enums/categories.enum';
 import { sortPriceEnum } from '../shared/enums/sortPrice.enum';
@@ -12,7 +13,7 @@ import { sortPriceEnum } from '../shared/enums/sortPrice.enum';
 export class ProductsComponent implements OnInit {
   @Output() dataSearch = new EventEmitter<any>();
   searchKeyWord: any;
-  productsList: any = [];
+  productsList: ProductModel[] = [];
   //////searchBox///////
   resualt: Boolean = false;
   SearchDone: Boolean = false;
@@ -22,9 +23,9 @@ export class ProductsComponent implements OnInit {
   listWomen: any = [];
 
   ///// pagination///////
-  currentPage: any = 1;
-  elementPerpage = 5;
-  collectionSize: number = 10;
+  page: any = 1;
+  pageSize = 10;
+  collectionSize: any;
   //// categorySidebar///
   categoryList: any = [];
   //// sort Section///////
@@ -41,7 +42,7 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) { }
   get SortPrice() {
     return sortPriceEnum
@@ -51,8 +52,7 @@ export class ProductsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getProduct();
-    this.route.queryParams.subscribe(params => {
-      console.log("params:", params)
+    this.activatedRoute.queryParams.subscribe(params => {
       this.urlParameters = Object.assign({}, params);
     });
   }
@@ -61,10 +61,8 @@ export class ProductsComponent implements OnInit {
       this.resualt = true;
       this.productsList = content;
       console.log(this.productsList);
-
       this.collectionSize = this.productsList.length;
       this.minMaxPrice();
-      this.handleRangePrice('999');
     })
   }
 
@@ -74,14 +72,14 @@ export class ProductsComponent implements OnInit {
       return;
     }
     if (this.searchKeyWord.length === 0) {
-      this.productsList = this.getProduct();
+      this.getProduct();/////////////////////////////////////////
     }
     if (data.keycode !== 13 && data.keycode !== 8) {
       if (this.searchKeyWord.length > 2) {
         this.SearchDone = true;
         const resualtList = this.productsList.filter((item: any) => item.title?.includes(this.searchKeyWord));
         this.urlParameters.searchWord = this.searchKeyWord;// Take current queryParameters from the activated route snapshot
-        this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
+        this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: this.urlParameters });
         if (resualtList.length !== 0) {
           this.productsList = resualtList;
           this.listElectronic.length = 0;
@@ -164,7 +162,7 @@ export class ProductsComponent implements OnInit {
       this.productService.getProductsSpecificCategory(item).subscribe((content: any) => {
         content.map((res: any) => {
           this.urlParameters.filterCategory = this.categoryList;// Take current queryParameters from the activated route snapshot
-          this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
+          this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: this.urlParameters });
           this.productsList.push({
             id: res.id,
             title: res.title,
@@ -178,15 +176,6 @@ export class ProductsComponent implements OnInit {
       })
     })
   }
-
-  // sortPrice(data: any) {
-  //   if (data == this.clearSort)
-  //     this.getProduct();
-  //   else
-  //     this.productService.SortResults('desc').subscribe(resualt => {
-  //       this.productsList = resualt
-  //     })
-  // }
   minMaxPrice() {
     const min = this.productsList.reduce((prev: any, current: any) => (prev.price < current.price) ? prev : current);
     const max = this.productsList.reduce((prev: any, current: any) => (prev.price > current.price) ? prev : current);
@@ -204,27 +193,29 @@ export class ProductsComponent implements OnInit {
       this.productsList.sort((a: any, b: any) => (a.price > b.price ? -1 : 1));
     }
     this.urlParameters.sortType = type;
-    this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
+    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: this.urlParameters });
   }
 
   handleRangePrice(data: any) {
     debugger
-    console.log(data);
     this.productsList = this.productsList.filter((item: any) => item.price < data)
     this.urlParameters.rangePrice = data;
-    this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
-
+    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: this.urlParameters });
   }
   availableProduct(data: any) {
     if (data) {
       this.productsList = this.productsList.filter((item: any) => item.rating.count !== 0)
       this.urlParameters.availableProduct = data;
-      this.router.navigate([], { relativeTo: this.route, queryParams: this.urlParameters });
+      this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: this.urlParameters });
     }
     else
       this.getProduct();
 
   }
+  // direct(id: any) {
+  //   this.router.navigate(['./details', id],
+  //     { relativeTo: this.activatedRoute })
+  // }
 
 
 }

@@ -16,7 +16,7 @@
             [max]="maxPrice" 
             id="customRange"
             [(ngModel)]="rangePriceValue" 
-            (ngModelChange)="changedRangePrice($event)" 
+            (ngModelChange)="changedRangePrice()" 
         >
         <div class="price">
             <span>{{minPrice}}</span>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="availableProducts style-section">
-        <label for="availableProduct" class="form-label">available products</label>
+        <label for="availableProduct" class="form-label px-2">available products</label>
         <input 
             class="form-check-input" 
             type="checkbox" 

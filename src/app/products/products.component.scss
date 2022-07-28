@@ -28,16 +28,20 @@
 }
 .store-view {
     background-color: $white;
+    min-width: 100%;
     
     // flex: 1;
     .card {
-        max-width: 200px;
+        max-width: 250px;
     }
 
     img {
         width     : 130px;
         height    : auto;
         max-height: 160px;
+    }
+    .info-card{
+        max-width: 250px;
     }
 
     .img-section {

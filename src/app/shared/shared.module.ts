@@ -5,6 +5,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   exports:[HeaderComponent,SidebarComponent,SearchBoxComponent,StarRatingComponent]
 })
