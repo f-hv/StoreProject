@@ -18,7 +18,7 @@
         <div class=" col-md-9 content">
             <div class="row sort-section d-flex">
                 <div class="col-sm-1">
-                    <h5>sorting</h5>
+                    <h6>sorting</h6>
                 </div>
                 <div class="col-sm-11 options">
                     <button class="button-Rprimary button-sm-1 mx-2" (click)="sortByPrice(SortPrice.asc)">
@@ -37,19 +37,19 @@
             <ng-template #resualtProducts>
                 <div class="row store-view search-results mt-3" infiniteScroll
                     [infiniteScrollDistance]="infiniteScrollDistance" [infiniteScrollThrottle]="infiniteScrollThrottle">
-                    <div *ngFor="let item of productsList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
-                        class="col mb-5 info-card">
+                    <div class="col mb-5 info-card" *ngFor="let item of productsList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+                        >
                         <div class="card h-100 align-products-center">
                             <div class="img-section">
-                                <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                <img class="card-img-top" [src]="item?.image"  alt="...">
                             </div>
                             <div class="card-body p-2">
                                 <div class="text-center">
                                     <div class="title-product">
-                                        <h4 class="fw-bolder ">{{item?.title}}</h4>
+                                        <h6 class="fw-bolder overflow-hidden ">{{item?.title}}</h6>
                                     </div>
                                     <app-star-rating [rate]="item.rating?.rate"></app-star-rating>
-                                    <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                    <h6 class="currency-section">{{item?.price|currency:'$'}} </h6>
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -81,15 +81,15 @@
                             <div *ngFor="let item of listElectronic " class="col mb-3 ">
                                 <div class="card h-100 align-products-center">
                                     <div class="img-section">
-                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                        <img class="card-img-top" [src]="item?.image"  alt="...">
                                     </div>
                                     <div class="card-body p-2">
                                         <div class="text-center">
                                             <div class="title-product">
-                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                                <h6 class="fw-bolder overflow-hidden">{{item?.title}}</h6>
                                             </div>
                                             <app-star-rating [rate]="item.rating.rate"></app-star-rating>
-                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                            <h6 class="currency-section">{{item?.price|currency:'$'}} </h6>
                                         </div>
                                     </div>
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -106,15 +106,15 @@
                             <div *ngFor="let item of listJewelery " class="col mb-3 ">
                                 <div class="card h-100 align-products-center">
                                     <div class="img-section">
-                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                        <img class="card-img-top" [src]="item?.image"  alt="...">
                                     </div>
                                     <div class="card-body p-2">
                                         <div class="text-center">
                                             <div class="title-product">
-                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                                <h6 class="fw-bolder overflow-hidden">{{item?.title}}</h6>
                                             </div>
                                             <app-star-rating [rate]="item.rating.rate"></app-star-rating>
-                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                            <h6 class="currency-section">{{item?.price|currency:'$'}} </h6>
                                         </div>
                                     </div>
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -131,15 +131,15 @@
                             <div *ngFor="let item of listMen " class="col mb-3 ">
                                 <div class="card h-100 align-products-center">
                                     <div class="img-section">
-                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                        <img class="card-img-top" [src]="item?.image"  alt="...">
                                     </div>
                                     <div class="card-body p-2">
                                         <div class="text-center">
                                             <div class="title-product">
-                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                                <h6 class="fw-bolder overflow-hidden">{{item?.title}}</h6>
                                             </div>
                                             <app-star-rating [rate]="item.rating.rate"></app-star-rating>
-                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                            <h6 class="currency-section">{{item?.price|currency:'$'}} </h6>
                                         </div>
                                     </div>
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -156,15 +156,15 @@
                             <div *ngFor="let item of listWomen " class="col mb-3  ">
                                 <div class="card h-100 align-products-center">
                                     <div class="img-section">
-                                        <img class="card-img-top" [src]="item?.image" width="40px" alt="...">
+                                        <img class="card-img-top" [src]="item?.image"  alt="...">
                                     </div>
                                     <div class="card-body p-2">
                                         <div class="text-center">
                                             <div class="title-product">
-                                                <h5 class="fw-bolder">{{item?.title}}</h5>
+                                                <h6 class="fw-bolder overflow-hidden">{{item?.title}}</h6>
                                             </div>
                                             <app-star-rating [rate]="item.rating.rate"></app-star-rating>
-                                            <h5 class="currency-section">{{item?.price|currency:'$'}} </h5>
+                                            <h6 class="currency-section">{{item?.price|currency:'$'}} </h6>
                                         </div>
                                     </div>
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

@@ -1,0 +1,22 @@
+<div class="container-fluid pt-5 ">
+    <div class="card position-relative mt-5"  *ngIf="loginForm">
+        <form  [formGroup]="loginForm">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4 class=" p-3">Welcome</h4>
+                </div>
+                <div class="mt-4 ">
+                    <input class="user-input w-100 p-2 mt-4" type="text" formControlName="userName">
+                    <label class="position-absolute mt-3 ">userName</label>
+                </div>
+                <div class=" mt-4">
+                    <input class="user-input w-100 p-2 mt-4" type="text" formControlName="password">
+                    <label class="position-absolute mt-3">password</label>
+                </div>
+                <div class="mt-5 btn-signin ">
+                    <button class="" (click)="login()">SIGNIN</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,49 +1,35 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { USER } from '../models/user.model';
+import { RestClientService } from './rest-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  apiURL = 'https://fakestoreapi.com';
+  apiURL = 'restClientServices://fakestoreapi.com';
 
-  constructor(private http: HttpClient) { }
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  constructor(private restClientService:RestClientService) { }
 
-  getUsers(): Observable<USER> {
-    return this.http
-      .get<USER>(this.apiURL + '/users')
+  getUsers(){
+    return this.restClientService.get(`/users`)
   }
-  GetUser(id: any): Observable<USER> {
-    return this.http
-      .get<USER>(this.apiURL + '/users/' + id)
+  GetUser(id: any){
+    return this.restClientService.get(`/users/ ${id}`)
   }
-  postuser(user: any) {
-    return this.http
-      .post<USER>(this.apiURL + '/users', JSON.stringify(user), this.httpOptions)
+  postuser(body: any) {
+    return this.restClientService.post('/users', JSON.stringify(body))
   }
-  putuser(user: any, id: any) {
-    return this.http
-      .put<USER>(this.apiURL + '/users/' + id, JSON.stringify(user), this.httpOptions)
+  putuser(body: any, id: any) {
+    return this.restClientService.put(`/users/ ${id}`, JSON.stringify(body))
   }
   deleteuser(id: any) {
-    return this.http
-      .delete<USER>(this.apiURL + '/users/' + id, this.httpOptions)
+    return this.restClientService.delete(`/users/ ${id}`)
   }
 
-  LimitResults(limit: any): Observable<USER> {
-    return this.http
-      .get<USER>(this.apiURL + '/users/' + limit)
+  LimitResults(limit: any){
+    return this.restClientService.get(`/users/ ${limit}`)
   }
-  SortResults(sort: any): Observable<USER> {
-    return this.http
-      .get<USER>(this.apiURL + '/users/' + sort)
+  SortResults(sort: any){
+    return this.restClientService.get(`/users?sort=${sort}`)
   }
 }

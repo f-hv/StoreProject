@@ -197,7 +197,6 @@ export class ProductsComponent implements OnInit {
   }
 
   handleRangePrice(data: any) {
-    debugger
     this.productsList = this.productsList.filter((item: any) => item.price < data)
     this.urlParameters.rangePrice = data;
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: this.urlParameters });

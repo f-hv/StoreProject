@@ -6,7 +6,8 @@
     flex-direction : row;
     align-content: flex-start;
     flex-wrap      : wrap;
-    padding-left   : 30px;
+    padding-left   : 10px;
+    flex: 0 0 78%;
     
 }
 
@@ -35,17 +36,13 @@
         max-width: 250px;
     }
 
-    img {
-        width     : 130px;
-        height    : auto;
-        max-height: 160px;
-    }
+    
     .info-card{
         max-width: 250px;
     }
 
     .img-section {
-        height         : 200px;
+        height         : 160px;
         display        : flex;
         align-items    : center;
         justify-content: center;
@@ -53,7 +50,7 @@
 
     .title-product {
         white-space  : nowrap;
-        width        : 175px;
+        width        : 200px;
         overflow     : hidden;
         direction    : ltr;
         text-overflow: clip;
@@ -80,4 +77,9 @@
 }
 h3{
     color           : $magenta-80;
+}
+img {
+    width     : 110px;
+    height    : auto;
+    max-height: 160px;
 }
